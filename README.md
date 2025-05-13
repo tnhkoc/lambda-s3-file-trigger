@@ -1,31 +1,54 @@
-# 📦 Lambda S3 File Trigger
+# AWS Lambda – S3 Trigger Integration
 
-This AWS Lambda function is triggered automatically whenever a file is uploaded to a specified S3 bucket. The function reads the event metadata and logs the filename using CloudWatch Logs.
+This project demonstrates how to set up an AWS Lambda function that is automatically triggered whenever a new file is uploaded to a specific S3 bucket. The Lambda function extracts the uploaded file's name from the event and logs it to CloudWatch.
 
-## 🧰 Services Used
+---
 
-- AWS Lambda
-- Amazon S3
-- Amazon CloudWatch Logs
-- IAM Role (for Lambda execution)
+## Purpose
 
-## 🚀 How It Works
+- Understand how AWS Lambda integrates with S3 events
+- Learn event-driven architecture basics using AWS native services
+- Practice IAM permissions and logging with CloudWatch
 
-1. An S3 bucket is created.
-2. A Lambda function (`S3UploadLogger`) is created with a Python runtime.
-3. A trigger is set up so the function is invoked on every file upload (`s3:ObjectCreated:*`).
-4. The Lambda function reads the uploaded file's name from the event and logs it.
+---
 
-## 🔧 Setup Steps
+## Services Used
 
-- Create an S3 bucket
-- Create a Lambda function with basic execution role
-- Connect the S3 trigger to the function
-- Upload any file to test
+- **Amazon S3** – Object storage for file uploads  
+- **AWS Lambda** – Event-driven compute service  
+- **IAM** – Permissions for Lambda to access S3 and CloudWatch  
+- **CloudWatch** – Logs to monitor Lambda execution
 
-## 📷 Screenshots
+---
 
-Screenshots of configuration, trigger setup, and logs should be added here.
+## Architecture Overview
 
-## ✅ Sample Output
+1. A file is uploaded to an S3 bucket
+2. This event triggers the Lambda function
+3. The function reads the filename from the event object
+4. The filename is logged to CloudWatch Logs
 
+---
+
+## Setup Instructions
+
+### 1. Create an S3 Bucket
+- Go to the S3 console and create a new bucket (e.g. `lambda-s3-trigger-demo`)
+- Ensure "Block all public access" is enabled
+
+### 2. Create a Lambda Function
+- Runtime: Python 3.10  
+- Permissions: Create a new role with basic Lambda permissions
+
+Paste the following code:
+
+```python
+import json
+
+def lambda_handler(event, context):
+    file_name = event['Records'][0]['s3']['object']['key']
+    print(f"New file uploaded: {file_name}")
+    return {
+        'statusCode': 200,
+        'body': json.dumps(f"Processed file: {file_name}")
+    }
