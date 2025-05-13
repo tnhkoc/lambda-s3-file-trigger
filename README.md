@@ -1,4 +1,4 @@
-# 🪄 AWS Lambda – S3 Trigger Integration (Python)
+# AWS Lambda – S3 Trigger Integration (Python)
 
 This project demonstrates a basic event-driven architecture using AWS Lambda and Amazon S3. When a file is uploaded to a specific S3 bucket, the Lambda function is triggered and logs the file name to **Amazon CloudWatch**.
 
