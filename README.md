@@ -75,6 +75,7 @@ def lambda_handler(event, context):
 - Save
 
 ⚠️ If you get a permissions error make sure to check the box:  :  
+
 **“I acknowledge that using the same S3 bucket for both input and output is not recommended...”**  
 Otherwise, the trigger won't be created.
 
