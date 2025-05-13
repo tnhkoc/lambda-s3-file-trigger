@@ -1,52 +1,54 @@
-# AWS Lambda – S3 Trigger Integration
+# 🪄 AWS Lambda – S3 Trigger Integration (Python)
 
-This project demonstrates how to set up an AWS Lambda function that is automatically triggered whenever a new file is uploaded to a specific S3 bucket. The Lambda function extracts the uploaded file's name from the event and logs it to CloudWatch.
-
----
-
-## 📌 Purpose
-
-- Understand how AWS Lambda integrates with S3 events  
-- Learn event-driven architecture basics using AWS native services  
-- Practice IAM permissions and logging with CloudWatch  
+This project demonstrates a basic event-driven architecture using AWS Lambda and Amazon S3. When a file is uploaded to a specific S3 bucket, the Lambda function is triggered and logs the file name to **Amazon CloudWatch**.
 
 ---
 
-## 🧰 Services Used
+## ✅ Objective
 
-- **Amazon S3** – Object storage for file uploads  
-- **AWS Lambda** – Event-driven compute service  
-- **IAM** – Permissions for Lambda to access S3 and CloudWatch  
-- **CloudWatch** – Logs to monitor Lambda execution  
-
----
-
-## 📈 Architecture Overview
-
-1. A file is uploaded to an S3 bucket  
-2. This event triggers the Lambda function  
-3. The function reads the filename from the event object  
-4. The filename is logged to CloudWatch Logs  
+- Understand how S3 triggers work with Lambda  
+- Learn how to handle AWS events in Python  
+- Practice role-based permissions using IAM  
+- Monitor function execution via CloudWatch Logs  
 
 ---
 
-## ⚙️ Setup Instructions
+## 🛠️ Services Used
 
-### 1. Create an S3 Bucket
-
-- Go to the **S3 Console**
-- Click **"Create Bucket"**
-- Choose a name like `lambda-s3-trigger-demo`
-- Keep **"Block all public access"** enabled
+- **Amazon S3** – Event source for uploads  
+- **AWS Lambda** – Event-driven compute  
+- **IAM** – Role for Lambda to access S3 and CloudWatch  
+- **Amazon CloudWatch** – To log and view events  
 
 ---
 
-### 2. Create a Lambda Function
+## 📐 Architecture
 
-- Runtime: **Python 3.10**
+1. File uploaded to S3  
+2. S3 sends an event to Lambda  
+3. Lambda function logs the filename  
+4. Output visible in CloudWatch Logs  
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. Create an S3 Bucket  
+- Go to the S3 console → **Create bucket**  
+- Example name: `lambda-s3-trigger-demo1`  
+- Ensure ACLs are disabled and public access is blocked  
+
+📸 Screenshot:  
+![S3 Bucket Creation](screenshots/01-s3-bucket-creation.png)
+
+---
+
+### 2. Create the Lambda Function  
+- Go to Lambda Console → Create function  
+- Runtime: `Python 3.10`  
 - Permissions: Create a new role with **basic Lambda permissions**
 
-Paste the following code into the Lambda function:
+Paste the following code:
 
 ```python
 import json
@@ -60,37 +62,45 @@ def lambda_handler(event, context):
     }
 ```
 
----
-
-### 3. Add S3 as Trigger
-
-- In the Lambda configuration, click **"Add trigger"**
-- Select **Amazon S3**
-- Choose the created bucket
-- Event type: **PUT**
-- Save the configuration
+📸 Screenshot:  
+![Lambda Function Code](screenshots/02-lambda-function-code.png)
 
 ---
 
-### 4. Test the Setup
+### 3. Add S3 as Trigger  
+- In Lambda → Click **Add trigger**  
+- Choose `Amazon S3`  
+- Select the bucket created (`lambda-s3-trigger-demo1`)  
+- Event type: `PUT`  
+- Save
 
-- Upload a file to the S3 bucket (e.g. `test-file.txt`)
-- Go to **CloudWatch Logs** via Lambda Monitoring tab
-- You should see output like:
+⚠️ If you get a permissions error:  
+- Go to **S3 > Permissions > Bucket Policy**
+- Add permission for S3 to invoke the Lambda
 
-```
-New file uploaded: test-file.txt
-```
-
----
-
-## 🖼️ Screenshots
-
-All screenshots related to setup and test results are located in the `/screenshots` folder.
+📸 Screenshot:  
+![Trigger Error](screenshots/03-add-s3-trigger-error.png)
 
 ---
 
-## 👤 Author
+### 4. Upload a File to S3  
+- Upload a test file (e.g., `test.txt`) into the S3 bucket
 
-**Tunahan Koç**  
-GitHub: [tnhkoc](https://github.com/tnhkoc)
+---
+
+### 5. Check Logs in CloudWatch  
+- Go to **CloudWatch → Log Groups → /aws/lambda/your-function-name**  
+- Verify that you see a log like: `New file uploaded: test.txt`
+
+📸 Screenshot:  
+![CloudWatch Log](screenshots/04-cloudwatch-logs-success.png)
+
+---
+
+## 📌 Notes
+
+- This project demonstrates a simple event trigger setup  
+- You can expand the Lambda to process file content, send notifications, or trigger other AWS services  
+- Make sure the IAM role has:
+  - `AmazonS3ReadOnlyAccess`
+  - `AWSLambdaBasicExecutionRole`
