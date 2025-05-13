@@ -74,9 +74,9 @@ def lambda_handler(event, context):
 - Event type: `PUT`  
 - Save
 
-⚠️ If you get a permissions error:  
-- Go to **S3 > Permissions > Bucket Policy**
-- Add permission for S3 to invoke the Lambda
+⚠️ If you get a permissions error make sure to check the box:  :  
+**“I acknowledge that using the same S3 bucket for both input and output is not recommended...”**  
+Otherwise, the trigger won't be created.
 
 📸 Screenshot:  
 ![Trigger Error](screenshots/03-add-s3-trigger-error.png)
