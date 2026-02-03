@@ -23,14 +23,24 @@ flowchart LR
 - **Monitoring:** CloudWatch Logs
 - **Security:** IAM Roles
 
-## 🔧 Setup & Usage
-1. Create an S3 bucket.
-2. Create a Lambda function with the provided Python code.
-3. Configure an S3 trigger on the Lambda function for `s3:ObjectCreated:*` events.
+---
+
+## 🔧 Setup & Steps
+
+### 1. Create S3 Bucket
+![S3 Bucket Creation](screenshots/01-s3-bucket-creation.png)
+
+### 2. Lambda Function Code
+Implement the Python logic to process the S3 event.
+![Lambda Code](screenshots/02-lambda-function-code.png)
+
+### 3. Configure Trigger
+Ensure the Lambda function has permissions to be invoked by S3.
+![Trigger Config](screenshots/03-add-s3-trigger-error.png)
 
 ## ✅ Verification
-- Upload any file to your S3 bucket.
-- Check CloudWatch Log Groups to see the logged filename.
+Upload a file and monitor the execution in CloudWatch Logs.
+![CloudWatch Logs](screenshots/04-cloudwatch-logs-success.png)
 
 ---
 Created by **Tunahan Koç** | [LinkedIn](https://www.linkedin.com/in/tunahan-koc-8b43b765/) | [GitHub](https://github.com/tnhkoc)
