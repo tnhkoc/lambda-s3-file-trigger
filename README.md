@@ -17,6 +17,17 @@ flowchart LR
   Lambda -->|Log Filename| CW["CloudWatch Logs"]
 ```
 
+---
+
+## 📁 Project Structure
+```text
+.
+├── screenshots/    # Step-by-step implementation visuals
+└── README.md       # Project documentation
+```
+
+---
+
 ## 🛠️ Tech Stack
 - **Compute:** AWS Lambda (Python 3.10)
 - **Storage:** Amazon S3
